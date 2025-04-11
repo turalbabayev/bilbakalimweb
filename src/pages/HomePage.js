@@ -39,10 +39,46 @@ const HomePage = () => {
 
   // Firebase'den etkinlikleri çeken fonksiyon
   useEffect(() => {
+    // Önce tüm database referansı alalım ve yapıyı kontrol edelim
+    const rootRef = ref(database, '/');
+    
+    onValue(rootRef, (snapshot) => {
+      const rootData = snapshot.val();
+      console.log("Firebase rootData:", rootData);
+      
+      // Doğru path'i tespit edelim
+      if (rootData) {
+        // Root altındaki tüm node'ları görelim
+        const keys = Object.keys(rootData);
+        console.log("Firebase root path keys:", keys);
+        
+        // Olası tüm duyuru node'larını kontrol edelim
+        const possiblePaths = ['duyurular', 'announcements', 'events', 'duyuru', 'etkinlikler'];
+        
+        possiblePaths.forEach(path => {
+          if (rootData[path]) {
+            console.log(`${path} içinde veriler bulundu:`, rootData[path]);
+            
+            // Burada doğru path'i bulduktan sonra işlem yapabilirsiniz
+            const items = Object.values(rootData[path]);
+            const etkinlikItems = items.filter(item => 
+              (item.aktif === true || item.aktif === "true") && 
+              (item.tip === "Etkinlik" || item.tip === "Event")
+            );
+            
+            console.log(`${path} içinde etkinlik tipinde ve aktif olanlar:`, etkinlikItems);
+          }
+        });
+      }
+    });
+    
+    // Ardından duyurular node'unu kontrol edelim
     const duyurularRef = ref(database, 'duyurular');
     
     onValue(duyurularRef, (snapshot) => {
       const data = snapshot.val();
+      console.log("Firebase'den gelen tüm duyurular:", data);
+      
       if (data) {
         // Objeyi diziye çevirip filtreleme işlemi
         const duyurularArray = Object.keys(data).map(key => ({
@@ -50,31 +86,42 @@ const HomePage = () => {
           ...data[key]
         }));
         
-        // Sadece tipi "Etkinlik" olan ve aktif olan duyuruları filtreleme
-        const activeEvents = duyurularArray.filter(duyuru => 
-          duyuru.aktif && duyuru.tip === "Etkinlik"
-        );
+        console.log("Dizi formatında duyurular:", duyurularArray);
         
-        // Tarihe göre sıralama (en yakın tarihli olanlar önce)
-        const sortedEvents = activeEvents.sort((a, b) => {
-          const dateA = new Date(a.tarih);
-          const dateB = new Date(b.tarih);
-          return dateA - dateB;
+        // Esnek filtreleme: sadece aktiflik ve tip kontrolü 
+        const activeAndTypeEvents = duyurularArray.filter(duyuru => {
+          // Nesne yapısını kontrol et
+          console.log(`Duyuru alanları:`, Object.keys(duyuru));
+          
+          // Aktiflik kontrolü - Boolean true veya string "true" olabilir
+          const isActive = duyuru.aktif === true || duyuru.aktif === "true" || duyuru.aktif === 1;
+          
+          // Tip kontrolü - Büyük/küçük harfe duyarsız kontrol
+          const isEventType = duyuru.tip && 
+            (duyuru.tip.toLowerCase() === "etkinlik" || 
+             duyuru.tip.toLowerCase() === "event");
+          
+          console.log(`Duyuru ${duyuru.baslik || 'isimsiz'}: Aktif mi? ${isActive}, Etkinlik mi? ${isEventType}, Tip: ${duyuru.tip}, Aktif: ${duyuru.aktif}`);
+          
+          return isActive && isEventType;
         });
         
-        // Sadece gelecek etkinlikleri gösterme
-        const futureEvents = sortedEvents.filter(event => {
-          const eventDate = new Date(event.tarih);
-          return eventDate >= new Date();
-        });
+        console.log('Filtrelenmiş etkinlikler:', activeAndTypeEvents);
+        
+        // En son eklenenleri önce göster (isteğe bağlı)
+        const sortedEvents = [...activeAndTypeEvents].reverse();
         
         // En fazla 3 etkinliği alma
-        const limitedEvents = futureEvents.slice(0, 3);
+        const limitedEvents = sortedEvents.slice(0, 3);
         
         setEvents(limitedEvents);
       } else {
+        console.log("Firebase'den veri gelmedi (null/undefined)");
         setEvents([]);
       }
+      setLoading(false);
+    }, (error) => {
+      console.error("Firebase veri çekme hatası:", error);
       setLoading(false);
     });
     
