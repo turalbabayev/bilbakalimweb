@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { 
   Box,
@@ -13,7 +13,8 @@ import {
   Paper,
   Divider,
   useTheme,
-  Chip
+  Chip,
+  CircularProgress
 } from '@mui/material';
 import { 
   PhoneAndroid as PhoneAndroidIcon,
@@ -26,40 +27,61 @@ import {
   LocationOn as LocationOnIcon
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
+import { database } from '../firebase';
+import { ref, onValue, query, orderByChild, limitToLast } from 'firebase/database';
+import { format } from 'date-fns';
+import tr from 'date-fns/locale/tr';
 
 const HomePage = () => {
   const theme = useTheme();
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Yaklaşan Etkinlikler
-  const upcomingEvents = [
-    {
-      id: 1,
-      title: 'YKS Hazırlık Stratejileri',
-      date: '15 Mart 2023',
-      time: '14:00',
-      location: 'Online',
-      image: '/events/event1.jpg',
-      category: 'Seminer'
-    },
-    {
-      id: 2,
-      title: 'Soru Çözüm Teknikleri',
-      date: '22 Mart 2023',
-      time: '16:00',
-      location: 'İstanbul',
-      image: '/events/event2.jpg',
-      category: 'Workshop'
-    },
-    {
-      id: 3,
-      title: 'Motivasyon ve Stres Yönetimi',
-      date: '5 Nisan 2023',
-      time: '15:30',
-      location: 'Online',
-      image: '/events/event3.jpg',
-      category: 'Webinar'
-    }
-  ];
+  // Firebase'den etkinlikleri çeken fonksiyon
+  useEffect(() => {
+    const duyurularRef = ref(database, 'duyurular');
+    
+    onValue(duyurularRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        // Objeyi diziye çevirip filtreleme işlemi
+        const duyurularArray = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key]
+        }));
+        
+        // Sadece tipi "Etkinlik" olan ve aktif olan duyuruları filtreleme
+        const activeEvents = duyurularArray.filter(duyuru => 
+          duyuru.aktif && duyuru.tip === "Etkinlik"
+        );
+        
+        // Tarihe göre sıralama (en yakın tarihli olanlar önce)
+        const sortedEvents = activeEvents.sort((a, b) => {
+          const dateA = new Date(a.tarih);
+          const dateB = new Date(b.tarih);
+          return dateA - dateB;
+        });
+        
+        // Sadece gelecek etkinlikleri gösterme
+        const futureEvents = sortedEvents.filter(event => {
+          const eventDate = new Date(event.tarih);
+          return eventDate >= new Date();
+        });
+        
+        // En fazla 3 etkinliği alma
+        const limitedEvents = futureEvents.slice(0, 3);
+        
+        setEvents(limitedEvents);
+      } else {
+        setEvents([]);
+      }
+      setLoading(false);
+    });
+    
+    return () => {
+      // Cleanup
+    };
+  }, []);
 
   // Uygulama Özellikleri
   const appFeatures = [
@@ -79,6 +101,20 @@ const HomePage = () => {
       icon: <PhoneAndroidIcon fontSize="large" color="success" />
     }
   ];
+
+  // Tarih formatını düzenleyen fonksiyon
+  const formatEventDate = (dateString) => {
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        return 'Tarih belirtilmemiş';
+      }
+      return format(date, 'd MMMM yyyy', { locale: tr });
+    } catch (error) {
+      console.error("Tarih formatı hatası:", error);
+      return 'Geçersiz tarih formatı';
+    }
+  };
 
   return (
     <Box>
@@ -227,75 +263,104 @@ const HomePage = () => {
             </Button>
           </Box>
 
-          <Grid container spacing={4}>
-            {upcomingEvents.map((event, index) => (
-              <Grid item xs={12} md={4} key={event.id}>
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                >
-                  <Card 
-                    sx={{ 
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      transition: '0.3s',
-                      '&:hover': {
-                        transform: 'translateY(-10px)',
-                        boxShadow: 4
-                      } 
-                    }}
+          {loading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+              <CircularProgress />
+            </Box>
+          ) : events.length > 0 ? (
+            <Grid container spacing={4}>
+              {events.map((event, index) => (
+                <Grid item xs={12} md={4} key={event.id}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 }}
                   >
-                    <CardMedia
-                      component="img"
-                      height="200"
-                      image={event.image}
-                      alt={event.title}
-                    />
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-                        <Typography variant="h6" component="h3" fontWeight="bold">
-                          {event.title}
-                        </Typography>
-                        <Chip 
-                          label={event.category} 
-                          color="primary" 
-                          size="small" 
-                          variant="outlined"
+                    <Card 
+                      sx={{ 
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        transition: '0.3s',
+                        '&:hover': {
+                          transform: 'translateY(-10px)',
+                          boxShadow: 4
+                        } 
+                      }}
+                    >
+                      {event.resim && (
+                        <CardMedia
+                          component="img"
+                          height="200"
+                          image={event.resim}
+                          alt={event.baslik}
                         />
-                      </Box>
-                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                        <AccessTimeIcon fontSize="small" color="action" sx={{ mr: 1 }} />
-                        <Typography variant="body2" color="text.secondary">
-                          {event.date}, {event.time}
+                      )}
+                      <CardContent sx={{ flexGrow: 1 }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                          <Typography variant="h6" component="h3" fontWeight="bold">
+                            {event.baslik}
+                          </Typography>
+                          <Chip 
+                            label={event.tip} 
+                            color="primary" 
+                            size="small" 
+                            variant="outlined"
+                          />
+                        </Box>
+                        <Typography variant="body2" color="text.secondary" paragraph>
+                          {event.kisaAciklama}
                         </Typography>
-                      </Box>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <LocationOnIcon fontSize="small" color="action" sx={{ mr: 1 }} />
-                        <Typography variant="body2" color="text.secondary">
-                          {event.location}
-                        </Typography>
-                      </Box>
-                    </CardContent>
-                    <CardActions sx={{ p: 2, pt: 0 }}>
-                      <Button size="small" color="primary">
-                        Detaylar
-                      </Button>
-                      <Button 
-                        size="small" 
-                        variant="contained" 
-                        color="primary"
-                        sx={{ ml: 'auto' }}
-                      >
-                        Kaydol
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </motion.div>
-              </Grid>
-            ))}
-          </Grid>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                          <AccessTimeIcon fontSize="small" color="action" sx={{ mr: 1 }} />
+                          <Typography variant="body2" color="text.secondary">
+                            {formatEventDate(event.tarih)}
+                          </Typography>
+                        </Box>
+                        {event.konum && (
+                          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <LocationOnIcon fontSize="small" color="action" sx={{ mr: 1 }} />
+                            <Typography variant="body2" color="text.secondary">
+                              {event.konum}
+                            </Typography>
+                          </Box>
+                        )}
+                      </CardContent>
+                      <CardActions sx={{ p: 2, pt: 0 }}>
+                        <Button 
+                          size="small" 
+                          color="primary"
+                          component={RouterLink}
+                          to={`/events/${event.id}`}
+                        >
+                          Detaylar
+                        </Button>
+                        {event.target && (
+                          <Button 
+                            size="small" 
+                            variant="contained" 
+                            color="primary"
+                            href={event.target}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            sx={{ ml: 'auto' }}
+                          >
+                            Kaydol
+                          </Button>
+                        )}
+                      </CardActions>
+                    </Card>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
+          ) : (
+            <Paper sx={{ p: 4, textAlign: 'center' }}>
+              <Typography variant="body1" color="text.secondary">
+                Şu anda yaklaşan etkinlik bulunmamaktadır.
+              </Typography>
+            </Paper>
+          )}
         </Container>
       </Box>
 
@@ -398,29 +463,25 @@ const HomePage = () => {
                   ₺0/ay
                 </Typography>
                 <Divider sx={{ my: 2 }} />
-                <Box sx={{ flexGrow: 1 }}>
+                <Box sx={{ mb: 3, flexGrow: 1 }}>
                   <Typography variant="body1" paragraph>
-                    Temel özelliklere erişim
+                    • Günlük 20 soru çözme hakkı
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    • Sınırlı soru erişimi
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
+                  <Typography variant="body1" paragraph>
                     • Temel istatistikler
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    • Reklamlı kullanım
+                  <Typography variant="body1" paragraph>
+                    • Reklam destekli
                   </Typography>
                 </Box>
                 <Button 
                   variant="outlined" 
-                  size="large"
-                  component="a"
-                  href="https://play.google.com/store"
-                  target="_blank"
-                  sx={{ mt: 2 }}
+                  color="primary"
+                  component={RouterLink}
+                  to="/register"
+                  fullWidth
                 >
-                  Hemen İndir
+                  Kaydol
                 </Button>
               </Paper>
             </motion.div>
@@ -440,65 +501,65 @@ const HomePage = () => {
                   height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
-                  border: 4,
+                  border: 3,
                   borderColor: 'primary.main',
+                  boxShadow: 10,
                   position: 'relative',
-                  boxShadow: 8,
-                  transform: { sm: 'scale(1.05)' },
-                  zIndex: 2
+                  overflow: 'hidden'
                 }}
               >
                 <Box 
                   sx={{ 
-                    position: 'absolute', 
-                    top: -12, 
-                    left: 0, 
-                    right: 0,
-                    display: 'flex',
-                    justifyContent: 'center'
+                    position: 'absolute',
+                    top: 15,
+                    right: -30,
+                    transform: 'rotate(45deg)',
+                    bgcolor: 'primary.main',
+                    color: 'white',
+                    px: 4,
+                    py: 0.5,
+                    width: 150
                   }}
                 >
-                  <Chip label="En Popüler" color="primary" sx={{ fontSize: '0.9rem', py: 0.5 }} />
+                  <Typography variant="body2" fontWeight="bold">
+                    En Popüler
+                  </Typography>
                 </Box>
-                <Box sx={{ mt: 2, mb: 2 }}>
+                <Box sx={{ mb: 2 }}>
                   <Chip label="Premium" color="primary" />
                 </Box>
                 <Typography variant="h4" component="h3" fontWeight="bold" gutterBottom>
                   Premium
                 </Typography>
-                <Typography variant="h6" color="text.secondary" gutterBottom>
-                  ₺49.99/ay
+                <Typography variant="h6" color="primary" gutterBottom>
+                  ₺39.99/ay
                 </Typography>
                 <Divider sx={{ my: 2 }} />
-                <Box sx={{ flexGrow: 1 }}>
+                <Box sx={{ mb: 3, flexGrow: 1 }}>
                   <Typography variant="body1" paragraph>
-                    Tam özellikli sınırsız erişim
+                    • Sınırsız soru çözme
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    • Sınırsız soru erişimi
+                  <Typography variant="body1" paragraph>
+                    • Detaylı istatistikler ve analiz
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    • Detaylı istatistikler
+                  <Typography variant="body1" paragraph>
+                    • Özel soru setleri
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    • Reklamsız kullanım
+                  <Typography variant="body1" paragraph>
+                    • Reklamsız deneyim
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    • Kişiselleştirilmiş öğrenme planı
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    • Tüm etkinliklere özel erişim
+                  <Typography variant="body1" paragraph>
+                    • Çevrimdışı kullanım
                   </Typography>
                 </Box>
                 <Button 
                   variant="contained" 
                   color="primary"
-                  size="large"
                   component={RouterLink}
-                  to="/register"
-                  sx={{ mt: 2 }}
+                  to="/register?plan=premium"
+                  fullWidth
                 >
-                  Şimdi Satın Al
+                  Hemen Başla
                 </Button>
               </Paper>
             </motion.div>
