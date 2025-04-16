@@ -45,3 +45,12 @@ HR has **definite confirmation** when it observes or confirms that a new hire ha
 
 ## 6. Summary
 A **simple and clear check** will be designed and supported by the Process Design Team, enabling HR to confidently ascertain that new hires have memorized the 10 basic principles. This mechanism fulfills the purpose of moving from uncertainty to certainty.
+
+---
+
+## Footer
+
+**Document Version:** 1.0  
+**Date:** *16.04.2025*  
+**Prepared By:** Tural Babayev / ABCVYZ  
+**Approved By:**  
