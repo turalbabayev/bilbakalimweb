@@ -4,99 +4,103 @@
 **Prepared By:** Tural Babayev / ABCVYZ  
 **Document Version:** 1.0  
 **Date:** 16.04.2025  
-**Approved By:** [Tolga Abi Onayı Bekleniyor]
+
 
 ---
 
 ## 1. Introduction
-
-Bu doküman, HR’ın yeni işe alınanların 10 temel ilkeyi ezbere öğrenip öğrenmediğini belirlemek için uygulanacak task’in adımlarını, teslimatlarını ve tahmini süreleri içermektedir. Planın onaylanması (mentor: Tolga Abi) sonrasında belirtilen adımlar uygulanmaya başlanacak ve tüm final dokümanları Gitea deposuna yüklenecektir.
+This plan includes the steps to be followed in implementing the process that will ensure HR is sure that the new hire "knows the 10 basic principles by heart." All actions will be based on this plan approved by the requester.
 
 ---
 
 ## 2. Objectives
 
-- **Kapsam Netleştirmesi:**  
-  Onaylanmış Scope of Work’ün gereksinimlerini tam olarak anlayıp netleştirmek.
-  
-- **Plan Hazırlama:**  
-  İşin hangi adımlardan oluşacağını, teslimatları ve tahmini tamamlanma tarihlerini belirlemek.
-  
-- **Onay Süreci:**  
-  Hazırlanan planı mentor (Tolga Abi) ile paylaşarak, onayını almak.
-  
-- **Dokümantasyon & Teslimat:**  
-  Tüm final dokümanlarını Gitea deposuna yükleyerek, sürecin arşivlenmesini sağlamak.
+- **Requirements Clarification:**
+    Finalization of the scope and requirements of the task in line with the approved Scope of Work.
+
+- **Plan-Oriented Work:**
+    All actions will be carried out according to this approved plan.
+
+- **Process Design & Documentation:**
+    Determine HR's "check step" process step by step and prepare detailed documentation.
+
+- **Approval and Delivery:**
+    Upload the final version of the prepared document to the Gitea repository after receiving approval.
 
 ---
 
-## 3. Planned Steps
+## 3. Progress Steps, Outputs, and Estimated Dates
 
-1. **Scope Review & Clarification**  
-   - **Faaliyet:**  
-     Onaylanmış Scope of Work’ü tekrar incele ve mentor ile belirsizlikleri gider.
-   - **Süre:**  
-     1 gün (Örnek: 17.04.2025)
+### Step 1: Requirements Review & Clarification
+- **Activity:**
+    Review the approved Scope of Work and clarify the task requirements. Have a meeting with the requester and resolve any uncertainties.
+- **Output:**
+    A document summarizing the clarified requirements.
+- **Estimated Duration:** 2-3 hours
+- **Estimated Completion Date:** 17.04.2025
 
-2. **Process Outline Creation**  
-   - **Faaliyet:**  
-     HR’ın uygulayacağı “check step” sürecinin adımlarını belirle, madde madde veya akış diyagramı şeklinde oluştur.
-   - **Süre:**  
-     1-2 gün (Örnek: 18.04.2025 – 19.04.2025)
+### Step 2: Process Design
+- **Activity:**
+    Design the steps of the “check step” process that HR will implement as a list of items or a simple flow diagram.
+- **Output:**
+    Draft document showing process steps.
+- **Estimated Duration:** 4-5 hours
+- **Estimated Completion Date:** 17.04.2025
 
-3. **Documentation Drafting**  
-   - **Faaliyet:**  
-     Belirlenen süreç taslağını, adımları ve yönergeleri içeren detaylı dokümantasyonu hazırla.
-   - **Süre:**  
-     1 gün (Örnek: 20.04.2025)
+### Step 3: Documentation Preparation
+- **Activity:**
+    Putting the created process design into a detailed document; explaining step-by-step instructions, responsibilities and methods to be used.
+- **Output:**
+    Written, detailed process documentation.
+- **Estimated Duration:** 2-3 hours
+- **Estimated Completion Date:** 17.04.2025
 
-4. **Feedback & Revision**  
-   - **Faaliyet:**  
-     Taslak dokümanı mentor ile paylaş, geri bildirim al ve gerekli düzenlemeleri yap.
-   - **Süre:**  
-     1 gün (Örnek: 21.04.2025)
+### Step 4: Feedback & Revision
+- **Activity:**
+    Sharing the prepared document with the requester to receive feedback and make necessary revisions.
+- **Output:**
+    Document revised and submitted for approval.
+- **Estimated Duration:** 1 hour  
+- **Estimated Completion Date:** 18.04.2025
 
-5. **Finalization & Upload**  
-   - **Faaliyet:**  
-     Dokümanı son haline getir, onaylandıktan sonra final dokümanı Gitea deposuna yükle.
-   - **Süre:**  
-     0.5 gün (Örnek: 21.04.2025 – öğleden sonra)
+### Step 5: Finalization & Deployment
+- **Activity:**  
+    Finalize the document based on feedback and upload the final document to the Gitea repository.
+- **Output:**  
+    Approved, final process document (will be archived in the Gitea repository).
+- **Estimated Duration:** 30 minutes
+- **Estimated Completion Date:** 18.04.2025
 
 ---
 
 ## 4. Deliverables
 
-- **Process Document:**  
-  HR’ın “check step” sürecini detaylandıran yazılı doküman.
-  
-- **Supplementary Materials:**  
-  Gerekirse akış diyagramı veya kontrol listesi.
-  
-- **Final Documentation:**  
-  Onaylanmış dokümanlar, Gitea deposunda arşivlenecek.
+- **Requirements Clarification Document:** Document summarizing clarified requirements.
+- **Process Design Draft:** Step-by-step draft document / flowchart of HR’s “check step” process.
+- **Detailed Process Document:** Written, detailed process document (guidelines, responsibilities, implementation steps).
+- **Final Approved Document:** Final version to be uploaded to Gitea repository after approval.
 
 ---
 
 ## 5. Timeline Summary
 
-| **Aşama**                      | **Süre**     | **Tahmini Tarih**                |
-|--------------------------------|--------------|----------------------------------|
-| Scope Review & Clarification   | 1 gün        | 17.04.2025                       |
-| Process Outline Creation       | 1-2 gün      | 18.04.2025 – 19.04.2025            |
-| Documentation Drafting         | 1 gün        | 20.04.2025                       |
-| Feedback & Revision            | 1 gün        | 21.04.2025                       |
-| Finalization & Upload          | 0.5 gün      | 21.04.2025 (öğleden sonra)        |
-| **Toplam Süre:**               | **4-5 gün**  |                                  |
+| **Step**                          | **Estimated Duration** | **Estimated Completion Date**          |
+|-----------------------------------|------------------------|----------------------------------------|
+| Requirements Review & Clarification | ~2-3 hours           | 17.04.2025                             |
+| Process Design                    | ~4-5 hours             | 17.04.2025                             |
+| Documentation Preparation         | ~2-3 hours             | 17.04.2025                             |
+| Feedback & Revision               | ~1 hour                | 18.04.2025                             |
+| Finalization & Deployment         | ~30 minutes            | 18.04.2025                             |
+| **Total Estimated Duration:**     | **~9-12 hour**          | Task completion: 18.04.2025            |
 
-*Not: Süre ve tarihler mentor ile görüşmeler neticesinde güncellenebilir.*
 
 ---
 
 ## 6. Next Steps
 
-1. Hazırlanan bu planı mentor (Tolga Abi) ile paylaşarak onayını al.
-2. Onay sonrası plan doğrultusunda süreci dokümante etmeye ve teslimatları hazırlamaya başla.
-3. Son dokümanları Gitea deposuna yükle.
+1. **Presentation:** Share this plan with the requester and get approval.
+2. **Implementation:** Start implementing the determined steps in order after approval.
+3. **Upload:** Upload the final document to the Gitea repository and update the status of the task via Trello.
 
 ---
 
@@ -104,5 +108,7 @@ Bu doküman, HR’ın yeni işe alınanların 10 temel ilkeyi ezbere öğrenip �
 
 - **Prepared By:** Tural Babayev / ABCVYZ  
 - **Date:** 16.04.2025  
-- **Approved By:** [Tolga Abi - Onay Bekleniyor]  
-- **Approval Date:** [Onay Tarihi]
+- **Approved By:** 
+- **Approval Date:** 
+
+
