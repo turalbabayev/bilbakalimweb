@@ -1,75 +1,74 @@
-# Analysis Document
+# Analiz Belgesi
 
-**Title:** Ensuring HR Confirms New Hires Have Memorized the 10 Basic Principles  
-**Prepared By:** Tural Babayev / ABCVYZ  
-**Document Version:** 1.0
-**Date:** 17.04.2025
-
----
-
-## 1. Task Definition
-The current situation is that Human Resources (HR) does not have a definitive method to confirm whether new hires have memorized the 10 basic principles **verbatim**.  
-The objective is to design a clear and simple process that transitions HR from a state of uncertainty (**Situation 0: Not Sure**) to certainty (**Situation 1: Sure**).
+**Başlık:** İK'nın Yeni İşe Alınanların 10 Temel İlkeyi Ezberlediğini Doğrulamasını Sağlama
+**Hazırlayan:** Tural Babayev / ABCVYZ
+**Belge Sürümü:** 1.0
+**Tarih:** 17.04.2025
 
 ---
 
-## 2. Stakeholder Analysis
+## 1. Görev Tanımı
+Mevcut durumda İnsan Kaynakları'nın (İK) yeni işe alınanların 10 temel ilkeyi **kelimesi kelimesine** ezberleyip ezberlemediğini doğrulamak için kesin bir yöntemi yoktur.
+Amaç, İK'yı belirsizlik durumundan (**Durum 0: Emin Değilim**) kesinliğe (**Durum 1: Eminim**) geçiren açık ve basit bir süreç tasarlamaktır.
 
-| Stakeholder | Role | Impact |
+---
+
+## 2. Paydaş Analizi
+
+| Paydaş | Rol | Etki |
 |:------------|:-----|:-------|
-| HR Department | Requester | Must adopt and apply the designed process. |
-| Process Design Team | Designer and Documenter | Responsible for creating and documenting the verification process. |
+| İK Departmanı | Talep Eden | Tasarlanan süreci benimsemeli ve uygulamalıdır. |
+| Süreç Tasarım Ekibi | Tasarımcı ve Belgeleyici | Doğrulama sürecini oluşturmaktan ve belgelemekten sorumludur. |
 
 ---
 
-## 3. Requirements Classification
+## 3. Gereksinim Sınıflandırması
 
-### 3.1 Functional Requirements (FR)
+### 3.1 İşlevsel Gereksinimler (FR)
 
-| ID | Description |
+| Kimlik | Açıklama |
 |:--|:------------|
-| FR-1 | HR must be able to verify that a new hire has memorized all 10 principles **verbatim**. |
-| FR-2 | The process must include a definitive **check step** to confirm memorization. |
-| FR-3 | The designed process must be simple and clear. |
+| FR-1 | İK, yeni işe alınan kişinin 10 ilkenin tamamını **kelimesi kelimesine** ezberlediğini doğrulayabilmelidir. |
+| FR-2 | Süreç, ezberlemeyi doğrulamak için kesin bir **kontrol adımı** içermelidir. |
+| FR-3 | Tasarlanan süreç basit ve açık olmalıdır. |
 
-### 3.2 Non-Functional Requirements (NFR)
+### 3.2 İşlevsel Olmayan Gereksinimler (NFR)
 
-| ID | Description |
+| ID | Açıklama |
 |:--|:------------|
-| NFR-1 | The process must not introduce heavy operational burden. |
-| NFR-2 | The process should minimize subjective judgment; it must rely on clear criteria. |
+| NFR-1 | Süreç ağır operasyonel yük getirmemelidir. |
+| NFR-2 | Süreç öznel yargıyı en aza indirmelidir; net kriterlere dayanmalıdır. |
 
 ---
 
-## 4. Open Issues
+## 4. Açık Sorunlar
 
-
-| Issue ID | Description | Responsible |
-|:--------|:------------|:-------------|
-| OI-1 | The method of the check (oral, written, form-based) has not been pre-defined. | To be decided in the design phase with multiple alternatives proposed. |
-| OI-2 | Anything that is not within the scope is out of scope. |
-
----
-
-## 5. Risks
-
-| Risk ID | Description | Mitigation Strategy |
-|:-------|:------------|:---------------------|
-| R-1 | Lack of defined check method may cause delays if requester expects a single finalized method. | Provide multiple design alternatives during the design phase for requester selection. |
-| R-2 | Assumptions about timing or HR personnel responsibility could lead to scope creep. | Strictly adhere to the defined scope; raise any change requests formally if needed. |
+| Sorun Kimliği | Açıklama | Sorumlu |
+|:--------|:------------|:------------|
+| OI-1 | Kontrol yöntemi (sözlü, yazılı, form tabanlı) önceden tanımlanmamıştır. | Birden fazla alternatif önerilerek tasarım aşamasında kararlaştırılacaktır. |
+| OI-2 | Kapsam dahilinde olmayan her şey kapsam dışıdır. |
 
 ---
 
-## 6. Approval and Change Management
+## 5. Riskler
 
-- The designed process will be shared with the requester for formal approval.
-- Any deviation from the defined scope (e.g., timing specification, remedial action flow) must trigger a formal **change request** and must be approved before implementation.
-- All updates to requirements must be documented with version control.
+| Risk Kimliği | Açıklama | Azaltma Stratejisi |
+|:-------|:------------|:-------------------|
+| R-1 | Talep eden tek bir kesinleştirilmiş yöntem bekliyorsa, tanımlanmış bir kontrol yönteminin olmaması gecikmelere neden olabilir. | Talep eden seçimi için tasarım aşamasında birden fazla tasarım alternatifi sağlayın. |
+| R-2 | Zamanlama veya İK personeli sorumluluğu hakkındaki varsayımlar kapsam kaymasına yol açabilir. | Tanımlanmış kapsama sıkı sıkıya bağlı kalın; gerekirse herhangi bir değişiklik talebini resmi olarak iletin. |
 
 ---
 
-**Footer**  
-**Prepared By:** Tural Babayev / ABCVYZ  
-**Date:** 17.04.2025  
-**Approved By:**  
-**Approval Date:**
+## 6. Onay ve Değişiklik Yönetimi
+
+- Tasarlanan süreç resmi onay için talep edenle paylaşılacaktır.
+- Tanımlanmış kapsamdan herhangi bir sapma (örneğin, zamanlama belirtimi, düzeltici eylem akışı) resmi bir **değişiklik talebi** tetiklemeli ve uygulamadan önce onaylanmalıdır.
+- Gereksinimlerdeki tüm güncellemeler sürüm kontrolü ile belgelenmelidir.
+
+---
+
+**Altbilgi**
+**Hazırlayan:** Tural Babayev / ABCVYZ
+**Tarih:** 17.04.2025
+**Onaylayan:**
+**Onay Tarihi:**
