@@ -2,7 +2,7 @@
 
 **Title:** Ensuring HR Confirms New Hires Have Memorized the 10 Basic Principles  
 **Prepared By:** Tural Babayev / ABCVYZ  
-**Document Version:** 2.0  
+**Document Version:** 2.1  
 **Date:** 17.04.2025
 
 ---
@@ -19,8 +19,7 @@ The objective is to design a clear and simple process that transitions HR from a
 | Stakeholder | Role | Impact |
 |:------------|:-----|:-------|
 | HR Department | Process Owner and Implementer | Must adopt and apply the designed process. |
-| Process Design Team | Designer and Documenter | Responsible for creating the verification process. |
-| New Hires | Subject of the process | Will be evaluated through the designed check step. |
+| Process Design Team | Designer and Documenter | Responsible for creating and documenting the verification process. |
 
 ---
 
