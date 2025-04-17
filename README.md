@@ -1,74 +1,134 @@
-# Analysis Document
+# Design Document
 
-**Title:** Ensuring HR Confirms New Hires Have Memorized the 10 Basic Principles  
+**Task Title:** Ensuring HR Confirms New Hires Have Memorized the 10 Basic Principles  
 **Prepared By:** Tural Babayev / ABCVYZ  
-**Document Version:** 1.0
-**Date:** 17.04.2025
+**Date:** 16.04.2025  
+**Version:** 1.0 (Final)
 
 ---
 
-## 1. Task Definition
-The current situation is that Human Resources (HR) does not have a definitive method to confirm whether new hires have memorized the 10 basic principles **verbatim**.  
-The objective is to design a clear and simple process that transitions HR from a state of uncertainty (**Situation 0: Not Sure**) to certainty (**Situation 1: Sure**).
+## 1. Objective
+
+The objective of this design is to create a simple and clear "check step" process that enables Human Resources (HR) to transition from **"not sure"** (Situation 0) to **"sure"** (Situation 1) regarding whether a new hire has memorized the "10 Basic Principles" verbatim.
+
+The process ensures HR can reliably and consistently reach a definitive internal certainty without any ambiguity, following the approved Scope of Work.
 
 ---
 
-## 2. Stakeholder Analysis
+## 2. Method Overview
 
-| Stakeholder | Role | Impact |
-|:------------|:-----|:-------|
-| HR Department | Requester | Must adopt and apply the designed process. |
-| Process Design Team | Designer and Documenter | Responsible for creating and documenting the verification process. |
-
----
-
-## 3. Requirements Classification
-
-### 3.1 Functional Requirements (FR)
-
-| ID | Description |
-|:--|:------------|
-| FR-1 | HR must be able to verify that a new hire has memorized all 10 principles **verbatim**. |
-| FR-2 | The process must include a definitive **check step** to confirm memorization. |
-| FR-3 | The designed process must be simple and clear. |
-
-### 3.2 Non-Functional Requirements (NFR)
-
-| ID | Description |
-|:--|:------------|
-| NFR-1 | The process must not introduce heavy operational burden. |
-| NFR-2 | The process should minimize subjective judgment; it must rely on clear criteria. |
+- **Type of Check:** Verbal (oral) recitation.
+- **Evaluation Method:** Manual, internal comparison by HR against the official text.
+- **Number of Attempts:** Only one attempt is allowed.
+- **Assessment Criteria:** 100% word-for-word match.
 
 ---
 
-## 4. Open Issues
+## 3. Process Flow Diagram
 
+```plantuml
+@startuml
+start
 
-| Issue ID | Description | Responsible |
-|:--------|:------------|:-------------|
-| OI-1 | The method of the check (oral, written, form-based) has not been pre-defined. | To be decided in the design phase with multiple alternatives proposed. |
+:HR retrieves official "10 Basic Principles" text;
+:HR ensures a quiet and distraction-free environment;
+:HR explains the check rules to the new hire;
+note right
+- Exact recitation required
+- Only one attempt
+- No assistance or hints
+end note
+
+:New hire begins verbal recitation;
+
+if (Recitation matches official text exactly?) then (Yes)
+  :HR reaches certainty: Memorization confirmed;
+else (No)
+  :HR reaches certainty: Memorization not confirmed;
+endif
+
+stop
+@enduml
+```
+
+> **Important Note:**  
+> Informing the new hire about the result or keeping a record is outside the scope of this design.
 
 ---
 
-## 5. Risks
+## 4. Detailed Process Steps
 
-| Risk ID | Description | Mitigation Strategy |
-|:-------|:------------|:---------------------|
-| R-1 | Lack of defined check method may cause delays if requester expects a single finalized method. | Provide multiple design alternatives during the design phase for requester selection. |
-| R-2 | Assumptions about timing or HR personnel responsibility could lead to scope creep. | Strictly adhere to the defined scope; raise any change requests formally if needed. |
+### Step 1: Preparation
+
+- HR retrieves the validated "10 Basic Principles" document.
+- HR ensures the environment is quiet and free of distractions.
+- HR reviews the evaluation criteria.
+
+### Step 2: Instruction to New Hire
+
+- HR explains the following rules clearly:
+  - "You must recite the 10 Basic Principles exactly as written."
+  - "You have only one attempt."
+  - "No help, hints, or corrections will be given during your attempt."
+
+### Step 3: Recitation
+
+- New hire verbally recites the principles.
+- HR listens silently, without providing assistance or interruption.
+
+### Step 4: Evaluation
+
+- HR manually compares the spoken words to the official text.
+- HR internally reaches certainty:
+  - **If 100% match:** Memorization is confirmed.
+  - **If any deviation:** Memorization is not confirmed.
 
 ---
 
-## 6. Approval and Change Management
+## 5. Checklist for HR Representatives
 
-- The designed process will be shared with the requester for formal approval.
-- Any deviation from the defined scope (e.g., timing specification, remedial action flow) must trigger a formal **change request** and must be approved before implementation.
-- All updates to requirements must be documented with version control.
+- [ ] Retrieved and reviewed the official "10 Basic Principles" text.
+- [ ] Ensured the environment is quiet and distraction-free.
+- [ ] Explained the process rules clearly to the new hire.
+- [ ] Listened attentively without assisting.
+- [ ] Compared the recitation word-for-word.
+- [ ] Internally reached certainty (confirmed or not confirmed).
 
 ---
 
-**Footer**  
-**Prepared By:** Tural Babayev / ABCVYZ  
-**Date:** 17.04.2025  
-**Approved By:**  
-**Approval Date:**
+## 6. Handling Special Situations (Edge Cases)
+
+| Scenario | HR Action |
+|:---|:---|
+| Minor hesitation but correct words | Allow and continue. |
+| Request for help during recitation | Politely decline and allow to continue. |
+| Forgetting or stopping | Conclude the attempt as not confirmed. |
+| Minor pronunciation variations (accent) | Acceptable if wording is correct. |
+
+---
+
+## 7. Success Criteria
+
+- HR can definitively determine the memorization status after one attempt.
+- No ambiguity remains in the result.
+- The check step is applied consistently by all HR representatives.
+
+---
+
+## 8. Scope Limitations
+
+- No retries, reattempts, or coaching.
+- No digital or manual recording of results.
+- New hire notification is not part of this design.
+
+---
+
+## 9. Approval
+
+- **Prepared By:** Tural Babayev / ABCVYZ
+- **Approved By:** [Requester Approval Pending]
+- **Approval Date:** [Pending]
+
+---
+
+*End of Design Document*
