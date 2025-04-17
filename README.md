@@ -1,114 +1,78 @@
-# Task Plan Document
+# Analysis Document (Requirement Engineering Based)
 
-**Task Title:** Ensuring HR Confirms New Hires Have Memorized the 10 Basic Principles  
+**Title:** Ensuring HR Confirms New Hires Have Memorized the 10 Basic Principles  
 **Prepared By:** Tural Babayev / ABCVYZ  
-**Document Version:** 1.0  
-**Date:** 16.04.2025  
-
-
----
-
-## 1. Introduction
-This plan includes the steps to be followed in implementing the process that will ensure HR is sure that the new hire "knows the 10 basic principles by heart." All actions will be based on this plan approved by the requester.
+**Document Version:** 2.0  
+**Date:** 17.04.2025
 
 ---
 
-## 2. Objectives
+## 1. Problem Definition
 
-- **Requirements Clarification:**
-    Finalization of the scope and requirements of the task in line with the approved Scope of Work.
-
-- **Plan-Oriented Work:**
-    All actions will be carried out according to this approved plan.
-
-- **Process Design & Documentation:**
-    Determine HR's "check step" process step by step and prepare detailed documentation.
-
-- **Approval and Delivery:**
-    Upload the final version of the prepared document to the Gitea repository after receiving approval.
+The current situation is that Human Resources (HR) does not have a definitive method to confirm whether new hires have memorized the 10 basic principles **verbatim**.  
+The objective is to design a clear and simple process that transitions HR from a state of uncertainty (**Situation 0: Not Sure**) to certainty (**Situation 1: Sure**).
 
 ---
 
-## 3. Progress Steps, Outputs, and Estimated Dates
+## 2. Stakeholder Analysis
 
-### Step 1: Requirements Review & Clarification
-- **Activity:**
-    Review the approved Scope of Work and clarify the task requirements. Have a meeting with the requester and resolve any uncertainties.
-- **Output:**
-    A document summarizing the clarified requirements.
-- **Estimated Duration:** 2-3 hours
-- **Estimated Completion Date:** 17.04.2025
-
-### Step 2: Process Design
-- **Activity:**
-    Design the steps of the “check step” process that HR will implement as a list of items or a simple flow diagram.
-- **Output:**
-    Draft document showing process steps.
-- **Estimated Duration:** 4-5 hours
-- **Estimated Completion Date:** 17.04.2025
-
-### Step 3: Documentation Preparation
-- **Activity:**
-    Putting the created process design into a detailed document; explaining step-by-step instructions, responsibilities and methods to be used.
-- **Output:**
-    Written, detailed process documentation.
-- **Estimated Duration:** 2-3 hours
-- **Estimated Completion Date:** 17.04.2025
-
-### Step 4: Feedback & Revision
-- **Activity:**
-    Sharing the prepared document with the requester to receive feedback and make necessary revisions.
-- **Output:**
-    Document revised and submitted for approval.
-- **Estimated Duration:** 1 hour  
-- **Estimated Completion Date:** 18.04.2025
-
-### Step 5: Finalization & Deployment
-- **Activity:**  
-    Finalize the document based on feedback and upload the final document to the Gitea repository.
-- **Output:**  
-    Approved, final process document (will be archived in the Gitea repository).
-- **Estimated Duration:** 30 minutes
-- **Estimated Completion Date:** 18.04.2025
+| Stakeholder | Role | Impact |
+|:------------|:-----|:-------|
+| HR Department | Process Owner and Implementer | Must adopt and apply the designed process. |
+| Process Design Team | Designer and Documenter | Responsible for creating the verification process. |
+| New Hires | Subject of the process | Will be evaluated through the designed check step. |
 
 ---
 
-## 4. Deliverables
+## 3. Requirements Classification
 
-- **Requirements Clarification Document:** Document summarizing clarified requirements.
-- **Process Design Draft:** Step-by-step draft document / flowchart of HR’s “check step” process.
-- **Detailed Process Document:** Written, detailed process document (guidelines, responsibilities, implementation steps).
-- **Final Approved Document:** Final version to be uploaded to Gitea repository after approval.
+### 3.1 Functional Requirements (FR)
 
----
+| ID | Description |
+|:--|:------------|
+| FR-1 | HR must be able to verify that a new hire has memorized all 10 principles **verbatim**. |
+| FR-2 | The process must include a definitive **check step** to confirm memorization. |
+| FR-3 | The designed process must be simple, clear, and reproducible. |
 
-## 5. Timeline Summary
+### 3.2 Non-Functional Requirements (NFR)
 
-| **Step**                          | **Estimated Duration** | **Estimated Completion Date**          |
-|-----------------------------------|------------------------|----------------------------------------|
-| Requirements Review & Clarification | ~2-3 hours           | 17.04.2025                             |
-| Process Design                    | ~4-5 hours             | 17.04.2025                             |
-| Documentation Preparation         | ~2-3 hours             | 17.04.2025                             |
-| Feedback & Revision               | ~1 hour                | 18.04.2025                             |
-| Finalization & Deployment         | ~30 minutes            | 18.04.2025                             |
-| **Total Estimated Duration:**     | **~9-12 hour**          | Task completion: 18.04.2025            |
-
+| ID | Description |
+|:--|:------------|
+| NFR-1 | The process must not introduce heavy operational burden. |
+| NFR-2 | The process should minimize subjective judgment; it must rely on clear criteria. |
 
 ---
 
-## 6. Next Steps
+## 4. Open Issues
 
-1. **Presentation:** Share this plan with the requester and get approval.
-2. **Implementation:** Start implementing the determined steps in order after approval.
-3. **Upload:** Upload the final document to the Gitea repository and update the status of the task via Trello.
+| Issue ID | Description | Responsible |
+|:--------|:------------|:-------------|
+| OI-1 | The method of the check (oral, written, form-based) has not been pre-defined. | To be decided in the design phase with multiple alternatives proposed. |
+| OI-2 | The timing of the check post-hiring is not specified and considered out of scope. | Out of Scope. |
+| OI-3 | No remedial actions for failed checks are within the scope of the task. | Out of Scope. |
+| OI-4 | Tools or platforms to be used for the check are not defined and considered out of scope. | Out of Scope. |
 
 ---
 
-## 7. Approval
+## 5. Risks
 
-- **Prepared By:** Tural Babayev / ABCVYZ  
-- **Date:** 16.04.2025  
-- **Approved By:** 
-- **Approval Date:** 
+| Risk ID | Description | Mitigation Strategy |
+|:-------|:------------|:---------------------|
+| R-1 | Lack of defined check method may cause delays if requester expects a single finalized method. | Provide multiple design alternatives during the design phase for requester selection. |
+| R-2 | Assumptions about timing or HR personnel responsibility could lead to scope creep. | Strictly adhere to the defined scope; raise any change requests formally if needed. |
 
+---
 
+## 6. Approval and Change Management
+
+- The designed process will be shared with the requester for formal approval.
+- Any deviation from the defined scope (e.g., timing specification, remedial action flow) must trigger a formal **change request** and must be approved before implementation.
+- All updates to requirements must be documented with version control.
+
+---
+
+**Footer**  
+**Prepared By:** Tural Babayev / ABCVYZ  
+**Date:** 17.04.2025  
+**Approved By:**  
+**Approval Date:**
