@@ -101,6 +101,22 @@ This plan includes the steps to be followed in implementing the process that wil
 | **Total Estimated Duration:**     | **~9-12 hour**          | Task completion: 18.04.2025            |
 
 
+
+## 3 — Dependency Schedule
+
+| # | Step | Depends On | Duration (h) | Completion |
+|---|------|------------|--------------|------------|
+| 1 | **Requirements Review & Clarification** | **P₀** | 2 | **C₁ = P₀ + 2 h** |
+| 2 | **Process Design** | **C₁** | 4 | **D₁ = C₁ + 4 h** |
+| 3 | **Documentation Preparation** | **D₁** | 3 | **Draft Doc = D₁ + 3 h** |
+| 4 | **Feedback & Revision** | Draft Doc | 2 | **F₁ = Draft Doc + 2 h** |
+| 5 | **Finalisation & Deployment** | **F₁** | 1 | **G₁ = F₁ + 1 h** |
+
+> **Ripple Rule:** Any delay at a milestone propagates by the same offset to all subsequent milestones.
+
+*Fallback:* If **D₁** (design) is not approved, flow returns to **C₁** for re‑clarification and re‑enters Step 2.
+
+
 ---
 
 ## 6. Next Steps
