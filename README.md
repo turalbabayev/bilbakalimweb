@@ -100,6 +100,17 @@ This plan includes the steps to be followed in implementing the process that wil
 | Finalization & Deployment         | ~30 minutes            | 18.04.2025                             |
 | **Total Estimated Duration:**     | **~9-12 hour**          | Task completion: 18.04.2025            |
 
+----
+
+## 2 — Key Milestones
+
+| Label | Milestone | Trigger |
+|-------|-----------|---------|
+| **P₀** | **Plan Approval** | Requester approves this plan. |
+| **C₁** | Requirements Clarified | All open points resolved with requester (online meeting). |
+| **D₁** | Design Draft Ready | Initial remote check‑step flow complete. |
+| **F₁** | Documentation Final | Detailed process doc complete after feedback. |
+| **G₁** | Gitea Deployment | Approved final doc pushed to Gitea repo. |
 
 
 ## 3 — Dependency Schedule
