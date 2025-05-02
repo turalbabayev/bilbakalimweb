@@ -1,94 +1,152 @@
-# Task Plan Document
+# JSON to XML Adapter Submission Web Application - Design Document
 
-**Task Title:** Ensuring HR Confirms New Hires Have Memorized the 10 Basic Principles  
-**Prepared By:** Tural Babayev / ABCVYZ  
-**Document Version:** 1.2
-**Date:** 18.04.2025  
-
----
-
-## Change Log
-
-| Version | Date | Changes | Reason |
-|---------|------|---------|--------|
-| 1.1 | 18 Apr 2025 | • Shifted timeline dates to reflect the current start (18 Apr 2025). | The original timeline has shifted because the physical verification approach proposed during the design phase was not approved. |
-| 1.2 | 18 Apr 2025 | Converted entire schedule to **pure dependency‑based offsets** (no fixed dates). Introduced milestone labels (P₀, C₁, D₁ …) and ripple‑shift rule. | Align fully with requester’s “dependency scheduling / butterfly effect” guidance. |
-
+**Prepared By:** Tural BABAYEV / ABCVYZ  
+**Date:** 02.05.2025  
+**Version:** 1.0
 
 ---
 
-## 1. Introduction
-This plan includes the steps to be followed in implementing the process that will ensure HR is sure that the new hire "knows the 10 basic principles by heart." All actions will be based on this plan approved by the requester.
+## 1. Overview
+This document defines the technical design of the JSON to XML Adapter Web Application (APP). The APP accepts structured JSON data, validates it, transforms it into an XML format, and transmits it to a third-party API. All major events (success/failure) are logged to a NoSQL database via a REST API.
 
 ---
 
-## 2. Objectives
+## 2. System Architecture
 
-- **Requirements Clarification:**
-    Finalization of the scope and requirements of the task in line with the approved Scope of Work.
-
-- **Plan-Oriented Work:**
-    All actions will be carried out according to this approved plan.
-
-- **Process Design & Documentation:**
-    Determine HR's "check step" process step by step and prepare detailed documentation.
-
-- **Approval and Delivery:**
-    Upload the final version of the prepared document to the Gitea repository after receiving approval.
+- **Type:** Frontend-only SPA
+- **Framework:** Vanilla JavaScript + HTML
+- **CDN Libraries:**
+  - [Axios](https://cdn.jsdelivr.net/npm/axios)
+  - [Fast-XML-Parser](https://cdn.jsdelivr.net/npm/fast-xml-parser)
+- **Third-party Integration:**
+  - XML Submit API: `POST api/xml`
+  - Audit Logging API: `POST http://db.com/api/v1/query/auditdb`
 
 ---
 
-## 3 — Key Milestones
+## 3. Data Design
 
-| Label | Milestone | Trigger |
-|-------|-----------|---------|
-| **P₀** | **Plan Approval** | Requester approves this plan. |
-| **C₁** | Requirements Clarified | All open points resolved with requester |
-| **D₁** | Design Draft Ready | Initial check‑step flow complete. |
-| **F₁** | Documentation Final | Detailed process doc complete after feedback. |
-| **G₁** | Deployment | Approved final doc pushed to git repo. |
+### 3.1 Input JSON Example
+```json
+{
+  "from_msisdn": "12345678910123",
+  "to_msisdn": "32109876543210",
+  "message": "Hello World!",
+  "encoding": "utf-8",
+  "field-map": {
+    "field_1": "boolean",
+    "field_2": "integer"
+  },
+  "field_1": true,
+  "field_2": 95
+}
+```
 
----
-
-## 4 — Dependency Schedule/Timeline
-
-| # | Step | Depends On | Duration (h) | Completion |
-|---|------|------------|--------------|------------|
-| 1 | **Requirements Review & Clarification** | **P₀** | 2-3 | **C₁ = P₀ + 2-3 h** |
-| 2 | **Process Design** | **C₁** | 3-5 | **D₁ = C₁ + 3-5 h** |
-| 3 | **Documentation Preparation** | **D₁** | 2-3 | **Draft Doc = D₁ + 2-3 h** |
-| 4 | **Feedback & Revision** | Draft Doc | 2-3 | **F₁ = Draft Doc + 2-3 h** |
-| 5 | **Finalisation & Deployment** | **F₁** | 1-2 | **G₁ = F₁ + 1-2 h** |
-
-> **Ripple Rule:** Any delay at a milestone propagates by the same offset to all subsequent milestones.
-
----
-
-
-## 4. Deliverables
-
-| Milestone | Deliverable |
-|-----------|-------------|
-| **C₁** | Requirements Clarification Document |
-| **D₁** | Process Design Draft |
-| **F₁** | Detailed Process Document |
-| **G₁** | Final Approved Document in git |
+### 3.2 Expected XML Output
+```xml
+<envelope>
+  <from_msisdn>12345678910123</from_msisdn>
+  <to_msisdn>32109876543210</to_msisdn>
+  <message>Hello World!</message>
+  <encoding>utf-8</encoding>
+  <field_1 type="boolean">true</field_1>
+  <field_2 type="integer">95</field_2>
+</envelope>
+```
 
 ---
 
-## 6 — Next Steps
+## 4. Functional Components
 
-1. **Plan Approval (P₀)** – obtain requester sign‑off.  
-2. Execute steps according to dependency table.  
-3. Update Trello & commit artefacts to Gitea at each milestone.
+| Component | Responsibility |
+|-----------|----------------|
+| `FormComponent` | Displays textarea for JSON input & submit button |
+| `JsonValidator` | Ensures required fields exist, parses `field-map` |
+| `JsonToXmlAdapter` | Converts valid JSON into required XML format |
+| `ApiService` | Sends XML to external API, communicates with audit logger |
+| `AuditLogger` | Sends SQL-like audit commands to NoSQL database API |
 
 ---
 
-## 7. Approval
+## 5. Interfaces
 
-- **Prepared By:** Tural Babayev / ABCVYZ  
-- **Date:** 18.04.2025  
-- **Approved By:** 
-- **Approval Date:** 
+### 5.1 Submit Form
+- Type: HTML form with textarea
+- Trigger: Button click calls validation & conversion
 
+### 5.2 POST /api/xml – XML Submission
+- **URL:** `http://transter.to/api/xml`
+- **Method:** POST
+- **Body:** XML string
+- **Success:** HTTP 200
+- **Failure:** Show error to user and logging to
+
+### 5.3 POST /api/v1/query/auditdb – Audit Logging
+- **URL:** `http://db.com/api/v1/query/auditdb`
+- **Method:** POST
+- **Headers:** `Content-Type: application/json`
+- **Body Format:**
+```json
+{
+  "language": "sql",
+  "command": "INSERT INTO audit SET timestamp = '2025-05-02T11:00:00Z', status = 'success', details = 'XML sent'"
+}
+- **Failure:** Processing must stop. User should see error message.
+
+---
+
+## 6. Error Handling & Validation
+
+- Invalid JSON → show error and log via audit
+- Missing required fields → show validation error and log
+- Audit logging fails → stop entire operation
+- XML API fails → show error and still log the attempt
+
+---
+
+## 7. UML Diagrams
+
+### 7.1 Sequence Diagram (PlantUML)
+```plantuml
+@startuml
+actor User
+participant "FormComponent" as Form
+participant "JsonValidator" as Validator
+participant "JsonToXmlAdapter" as Adapter
+participant "ApiService" as API
+participant "AuditLogger" as Audit
+
+User -> Form : Paste JSON & Click Submit
+Form -> Validator : Validate JSON
+alt Invalid JSON
+  Validator -> Audit : Log error
+  Audit --> Validator : Ack
+  Validator -> Form : Show error
+else Valid JSON
+  Validator -> Adapter : Convert to XML
+  Adapter -> API : Send to /api/xml
+  API --> Adapter : Response
+  Adapter -> Audit : Log success
+  Audit --> Adapter : Ack
+  Adapter -> Form : Show success
+end
+@enduml
+```
+
+### 7.2 Component Diagram
+```plantuml
+@startuml
+package "Client-Side App" {
+  [FormComponent] --> [JsonValidator]
+  [JsonValidator] --> [JsonToXmlAdapter]
+  [JsonToXmlAdapter] --> [ApiService]
+  [ApiService] --> [AuditLogger]
+}
+@enduml
+```
+
+
+---
+
+**End of Design Document**
 
