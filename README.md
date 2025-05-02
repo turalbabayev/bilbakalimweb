@@ -92,7 +92,7 @@ This document defines the technical design of the JSON to XML Adapter Web Applic
   "command": "INSERT INTO audit SET timestamp = '2025-05-02T11:00:00Z', status = 'success', details = 'XML sent'"
 }
 - **Failure:** Processing must stop. User should see error message.
-
+```
 ---
 
 ## 6. Error Handling & Validation
