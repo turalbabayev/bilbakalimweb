@@ -48,3 +48,35 @@
    - If key exists in `field-map`, add attribute: `<key type="...">value</key>`
 
 ---
+
+## 4  API Request Format Specification
+
+The request format defines how the frontend will communicate with the backend using REST-style POST requests. Two separate endpoints are used: one for XML submission, and one for audit logging.
+
+#### XML Submission API
+
+- **Endpoint:** `POST api/xml`
+- **Headers:**  
+  `Content-Type: application/xml`
+- **Example Body:**
+  ```xml
+  <envelope>
+    <from_msisdn>12345678901</from_msisdn>
+    <to_msisdn>12345678902</to_msisdn>
+    <message>Hello!</message>
+    <encoding>utf-8</encoding>
+    <custom_field_1 type="string">extra_value</custom_field_1>
+  </envelope>
+   ``` 
+
+#### Audit Trail Logging API
+- **Endpoint:** `POST /query`
+- **Headers:**  
+`Content-Type: application/json`
+- **Example Body:**
+```json
+{
+  "language": "sql",
+  "command": "INSERT INTO logs SET operation = 'submit_xml', status = 'success', timestamp = '2025-05-07T15:00:00Z'"
+}
+```
