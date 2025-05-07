@@ -146,3 +146,28 @@ for key in JSON:
     add <key>value</key>
 
 ```
+
+
+### 4 – May 8 – API request format specification
+
+Define how the converted XML will be submitted. Include method, endpoint, headers, and sample request body. REST-style. Deliver as `api-request-spec.md` by May 8.
+
+- Endpoint: `POST http://transter.to/api/xml`  
+- Method: `POST`  
+- Headers:  
+  - `Content-Type: application/xml`  
+  - `Accept: application/json`  
+- Body: XML wrapped in `<envelope>`, generated from validated JSON. If `field-map` exists, matching fields will include a `type` attribute.
+
+**Example body:**
+
+```xml
+<envelope>
+  <from_msisdn type="string">12345678910123</from_msisdn>
+  <to_msisdn type="string">98765432101234</to_msisdn>
+  <message type="string">Hello</message>
+  <encoding type="string">UTF-8</encoding>
+  <priority type="integer">1</priority>
+</envelope>
+
+
