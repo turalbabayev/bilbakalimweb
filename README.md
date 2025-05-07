@@ -169,5 +169,25 @@ Define how the converted XML will be submitted. Include method, endpoint, header
   <encoding type="string">UTF-8</encoding>
   <priority type="integer">1</priority>
 </envelope>
+```
+### Component Diagram
+
+This step defines the internal structure of the application by identifying its main components and the data flow between them. The goal is to show how responsibilities are divided and how data moves through the system from user input to external API calls.
+
+The diagram will include the following modules:
+
+- **UI Module**  
+  Handles user interaction. Captures JSON input and displays results or errors.
+
+- **Validator Module**  
+  Checks that required fields exist in the input and that the JSON format is valid.
+
+- **Converter Module**  
+  Converts validated JSON into XML under a root `<envelope>` tag. Handles `field-map` type conversion.
+
+- **API Client Module**  
+  Sends XML data to the submission API and logs operations via the audit API.
+
+Arrows will show the flow from UI → Validator → Converter → API Client. The diagram will also indicate mock API use during development.
 
 
