@@ -94,3 +94,20 @@ The request format defines how the frontend will communicate with the backend us
 ![compopnent_diagram](./compopnent_diagram.png)
 
 
+### 10 – May 8 – Test Input Matrix
+
+This matrix defines core test scenarios to verify the app's validation and JSON → XML transformation logic. It covers both valid and invalid inputs, based on edge cases and expected behaviors.
+
+| #  | Test Case Description                      | Input Summary                                  | Expected Result                         |
+|----|--------------------------------------------|------------------------------------------------|------------------------------------------|
+| 1  | Empty JSON body                            | `{}`                                           | Validation error: all required fields missing |
+| 2  | Missing `encoding` field                   | JSON without `encoding`                        | Validation error                         |
+| 3  | Valid minimal input                        | Required fields only, all valid                | Success – XML generated and submitted    |
+| 4  | Invalid `from_msisdn`                      | `from_msisdn` contains letters                 | Validation error                         |
+| 5  | Extra field not listed in `field-map`      | Extra key like `priority`, no map given        | Validation error                         |
+| 6  | `field-map` has unsupported type           | `"priority": true`, type `"object"` in map     | Validation error                         |
+| 7  | Valid input with field-map                 | Extra field with correct `field-map`           | Success – Field included in XML          |
+| 8  | Extremely large input                      | >100KB JSON                                    | Success or timeout (depending on browser/runtime) |
+| 9  | API unreachable                            | Simulate server down                           | Submission error displayed to user       |
+| 10 | Audit API fails                            | Simulate audit server 500                      | Process should stop, error displayed     |
+
