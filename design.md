@@ -4,7 +4,7 @@
 
 ![ui_wireframe](./wireframe.drawio.png)
 
-
+---
 ## 2 - JSON Input Field Definition
 
 ### Required Fields
@@ -32,14 +32,13 @@
   }
 }
 ```
-
+---
 ## 3 - JSON → XML mapping rules
 
 - All output is wrapped under `<envelope>`.
 - Each top-level JSON key becomes an XML tag.
 - If `field-map` exists, it provides a `type` attribute for the matching fields.
 - `field-map` itself is not converted.
-
 
 ### Mapping Logic
 
