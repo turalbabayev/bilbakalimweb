@@ -32,3 +32,20 @@
   }
 }
 ```
+
+## 3 - JSON → XML mapping rules
+
+- All output is wrapped under `<envelope>`.
+- Each top-level JSON key becomes an XML tag.
+- If `field-map` exists, it provides a `type` attribute for the matching fields.
+- `field-map` itself is not converted.
+
+
+### Mapping Logic
+
+1. Skip `field-map`.
+2. For each JSON key:
+   - Create `<key>value</key>`
+   - If key exists in `field-map`, add attribute: `<key type="...">value</key>`
+
+---
