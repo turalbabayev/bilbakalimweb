@@ -89,3 +89,60 @@ for key in json_object:
         add <key>value</key> inside envelope
 
 ```
+
+
+
+# JSON → XML Mapping Rules
+
+**Date:** May 8  
+**Prepared by:** Tural Babayev  
+**Deliverable:** mapping-rules.md
+
+---
+
+## Purpose
+
+Define how incoming JSON fields will be converted to XML elements under a root `<envelope>` tag.
+
+---
+
+## Rules
+
+- All output is wrapped under `<envelope>`.
+- Each top-level JSON key becomes an XML tag.
+- If `field-map` exists, it provides a `type` attribute for the matching fields.
+- `field-map` itself is not converted.
+
+---
+
+## Supported Types
+
+Values in `field-map` must be one of:
+- `string`
+- `integer`
+- `float`
+- `boolean`
+
+---
+
+## Mapping Logic
+
+1. Skip `field-map`.
+2. For each JSON key:
+   - Create `<key>value</key>`
+   - If key exists in `field-map`, add attribute: `<key type="...">value</key>`
+
+---
+
+## Pseudocode
+
+```pseudo
+for key in JSON:
+  if key == "field-map":
+    continue
+  if key in field-map:
+    add <key type=field-map[key]>value</key>
+  else:
+    add <key>value</key>
+
+```
