@@ -26,6 +26,7 @@ This document defines the expected JSON structure for the JSON to XML Adapter.
     "priority": "integer"
   }
 }
+```
 
 # JSON → XML Mapping Rules
 
@@ -87,3 +88,4 @@ for key in json_object:
     else:
         add <key>value</key> inside envelope
 
+```
