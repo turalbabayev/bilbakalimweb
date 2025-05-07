@@ -40,7 +40,7 @@
 - If `field-map` exists, it provides a `type` attribute for the matching fields.
 - `field-map` itself is not converted.
 
-### Mapping Logic
+### Mapping Logic
 
 1. Skip `field-map`.
 2. For each JSON key:
