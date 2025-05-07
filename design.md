@@ -92,7 +92,26 @@ The request format defines how the frontend will communicate with the backend us
 > The diagram below shows the main modules
 
 ![compopnent_diagram](./compopnent_diagram.png)
+---
 
+### 9 – May 8 – Edge Case List
+
+>  This checklist outlines edge cases that may occur due to user input or runtime behavior. 
+
+- [ ] JSON body is empty
+- [ ] JSON is not parsable (e.g. syntax error)
+- [ ] Required fields are missing (`from_msisdn`, `to_msisdn`, `message`, `encoding`)
+- [ ] `from_msisdn` or `to_msisdn` are not numeric strings
+- [ ] `encoding` value is not supported (e.g. not `ascii` or `utf-8`)
+- [ ] `message` field is empty or contains invalid characters
+- [ ] `field-map` is provided but contains unsupported data types
+- [ ] Extra fields in JSON not listed in `field-map`
+- [ ] Extremely large JSON input (e.g. >100KB)
+- [ ] Backend submission API is unreachable (network error)
+- [ ] Audit API returns error or times out
+- [ ] Duplicate submission within a short period
+
+---
 
 ### 10 – May 8 – Test Input Matrix
 
