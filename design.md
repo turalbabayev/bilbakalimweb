@@ -80,3 +80,17 @@ The request format defines how the frontend will communicate with the backend us
   "command": "INSERT INTO logs SET operation = 'submit_xml', status = 'success', timestamp = '2025-05-07T15:00:00Z'"
 }
 ```
+
+---
+
+### 5 Mock API behavior:
+
+---
+
+### 6 - Component Diagram
+
+> The diagram below shows the main modules
+
+![compopnent_diagram](./compopnent_diagram.png)
+
+
