@@ -26,3 +26,64 @@ This document defines the expected JSON structure for the JSON to XML Adapter.
     "priority": "integer"
   }
 }
+
+# JSON → XML Mapping Rules
+
+**Design Owner:** Tural Babayev  
+**Date:** 2025-05-08  
+**Deliverable:** mapping-rules.md  
+**Goal:** Define how incoming JSON input will be converted into structured XML under a common root element.
+
+---
+
+## 1. Purpose
+
+To define a consistent and predictable rule set for converting JSON-formatted form data into an XML structure, ensuring proper tagging, typing, and ordering for downstream API submission.
+
+---
+
+## 2. Mapping Strategy
+
+- The XML output will be wrapped inside a single root element: `<envelope>`.
+- Each top-level key in the input JSON will be converted into a separate child XML tag.
+- If the JSON includes a `field-map` object, any key listed in it will receive a `type` attribute in its XML equivalent.
+- The key `field-map` itself will not be transformed into XML.
+
+---
+
+## 3. Supported Field Types (from `field-map`)
+
+Only the following types will be accepted as values inside `field-map`:
+- `string`
+- `integer`
+- `float`
+- `boolean`
+
+These values will be added as the value of the `type` attribute on their corresponding XML tags.
+
+---
+
+## 4. Transformation Rules (Step-by-step)
+
+1. Loop through each top-level key in the JSON object.
+2. If the key is `"field-map"`, skip it.
+3. For each key:
+   - Create an XML tag with the same name as the key.
+   - If the key exists in `field-map`, add `type="..."` as an attribute using the provided type.
+   - Place the field's value inside the tag as its text content.
+4. Group all these tags under a root `<envelope>` element.
+
+---
+
+## 5. Pseudocode Representation
+
+```pseudo
+for key in json_object:
+    if key == "field-map":
+        continue
+    if key in json_object["field-map"]:
+        type = json_object["field-map"][key]
+        add <key type="type">value</key> inside envelope
+    else:
+        add <key>value</key> inside envelope
+
